@@ -46,8 +46,8 @@ void display() {
 	strokeString(170, 420, 0.5, 0.4, "QUEUE VISUALIZATION", 6);
 	glColor3f(1, 1, 0);
 	glColor3f(1, 0, 0);
-	strokeString(50, 50, 0.17, 0.17, "Press (Enter) to start the simulation",
-			2);
+//	strokeString(50, 50, 0.17, 0.17, "Press (Enter) to start the simulation",
+//			2);
 	strokeString(650, 220, 0.15, 0.15, "By:", 2);
 	strokeString(10, 220, 0.15, 0.15, "Under the guidance of:", 2);
 	glColor3f(1, 1, 0);
@@ -58,16 +58,84 @@ void display() {
 	strokeString(10, 140, 0.18, 0.18, "(Asst. Professor, Dept. of CSE)", 2);
 	glColor3f(1, 0, 0);
 
+	button(100, 50, 300, 100, "Start Simulation");
+
 	glutSwapBuffers();
 }
+
+/*
+ * Functions for button start.
+ */
+int x1, y1, x2, y2;
+int state;
+char str[10];
+
+void buttonDraw() {
+	glColor3f(0.2, 0.2, 0.8);
+	glBegin(GL_POLYGON);
+	glVertex2f(x1, y1);
+	glVertex2f(x2, y1);
+	glVertex2f(x2, y2);
+	glVertex2f(x1, y2);
+	glEnd();
+	if (state == 0) {
+		glColor3f(0, 0, 0);
+		glBegin(GL_LINES);
+		glVertex2f(x1, y1);
+		glVertex2f(x2, y1);
+		glVertex2f(x2, y1);
+		glVertex2f(x2, y2);
+		glEnd();
+	} else if (state == 1) {
+		glColor3f(0, 0, 0);
+		glBegin(GL_LINES);
+		glVertex2f(x1, y1);
+		glVertex2f(x1, y2);
+		glVertex2f(x1, y2);
+		glVertex2f(x2, y2);
+		glEnd();
+	}
+	glColor3f(1.0, 1.0, 1.0);
+	strokeString(x1 + 10, y1 + 10, 0.15, 0.15, str, 2);
+
+}
+
+int insideButton(int x, int y) {
+	if (x > x1 && x < x2 && y > y1 && y < y2)
+		return 1;
+	else
+		return 0;
+}
+
+void toggleState() {
+	/*if(state==1)
+	 state=0;
+	 else if(state==0)
+	 state=1;*/
+	state = (state == 1) ? 0 : 1;
+}
+
+void button(int x11, int y11, int x22, int y22, char *str1) {
+	x1 = x11;
+	y1 = y11;
+	x2 = x22;
+	y2 = y22;
+	state = 1;
+	strcpy(str, str1);
+	buttonDraw();
+	toggleState();
+}
+/*
+ * Functions for button end.
+ */
 
 int main(int argc, char **argv) {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 	glutInitWindowSize(1366, 738);
 	glutInitWindowPosition(0, 0);
-	glutCreateWindow("Queue Visualization - AzeezFazry");
 
+	glutCreateWindow("Queue Visualization - AzeezFazry");
 	init();
 	glutDisplayFunc(display);
 	glutMainLoop();
