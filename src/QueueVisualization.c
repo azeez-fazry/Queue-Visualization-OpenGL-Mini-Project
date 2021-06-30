@@ -9,20 +9,185 @@
 
 #include <GL/glut.h>
 
-/*
- * To initial setup for our environment
- */
+int i = 0, x = -1, y = -1;
+GLfloat angle = -20.0, xaxis = 1.0, yaxis = 1.0, zaxis = 0.0;
+
 void init() {
-	glClearColor(0, 0, 0, 0);
+	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity(); //reset the transformations of the current matrix
-	glOrtho(0, 1000, 0, 1000, -1, 1);
+	glLoadIdentity();
+	gluOrtho2D(0.0, 400.0, 0.0, 400.0);
 	glMatrixMode(GL_MODELVIEW);
 }
 
-/*
- * Function to draw strings
- */
+void key(unsigned char key, int a, int b) {
+	if (key == 'b') {
+		angle += 10;
+		insert();
+	}
+	if (key == 'B') {
+		angle -= 10;
+		insert();
+	}
+
+	if (key == 'z') {
+
+		delt();
+		if (y < 5 && y <= x) {
+			printf("%d deleted sucessfully\n", y + 1);
+		}
+
+	}
+
+	if (key == 'c') {
+		x++;
+
+		if (x > 4) {
+			char r1[] = "Queue Overflow";
+			glColor3f(1.0, 0.0, 1.0);
+			glRasterPos3f(1.0, -1.5, 0.2);
+			for (i = 0; r1[i] != '\0'; i++)
+				glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, r1[i]);
+
+		}
+
+		if (x <= 4) {
+			char str3[] = "inserted sucessfully";
+			glColor3f(0.0, 1.0, 1.0);
+			glRasterPos3f(-4.0, -1.2, 0.2);
+			for (i = 0; str3[i] != '\0'; i++)
+				glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, str3[i]);
+		}
+		if (x < 5) {
+			printf("%d inserted sucessfully\n", x + 1);
+		}
+		if (x >= 5) {
+			printf("queue overflow \n");
+		}
+		if (x > 4)
+			x = 4;
+		insert();
+	}
+
+	glutPostRedisplay();
+}
+
+void display1(void) {
+	glLoadIdentity();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	char str[] = "Implementation Of Queue";
+	char str1[] =
+			"FrontEnd                                                                                                                           Rear End";
+	glColor3f(1.0, 1.0, 0.0);
+	glRasterPos3f(-1.0, 1.8, 0.2);
+	for (i = 0; str[i] != '\0'; i++)
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, str[i]);
+	glColor3f(0.0, 0.0, 1.0);
+	glRasterPos3f(-4.2, 0.04, 0.2);
+	for (i = 0; str1[i] != '\0'; i++)
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, str1[i]);
+
+	glFlush();
+
+}
+
+void myReshape(int w, int h) {
+	glViewport(0, 0, w, h);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	if (w <= h)
+		glOrtho(-2.0, 2.0, -2.0 * (GLfloat) h / (GLfloat) w,
+				2.0 * (GLfloat) h / (GLfloat) w, 10.0, -10.0);
+	else
+		glOrtho(-2.0 * (GLfloat) w / (GLfloat) h,
+				2.0 * (GLfloat) w / (GLfloat) h, -2.0, 2.0, -10.0, 10.0);
+	glMatrixMode(GL_MODELVIEW);
+}
+
+void submenu(GLint option) {
+	switch (option) {
+	case 1:
+		xaxis = 1.0;
+		yaxis = 0.0;
+		zaxis = 0.0;
+		break;
+	case 2:
+		xaxis = 0.0;
+		yaxis = 1.0;
+		zaxis = 0.0;
+		break;
+	case 3:
+		xaxis = 0.0;
+		yaxis = 0.0;
+		zaxis = 1.0;
+		break;
+	case 4:
+		xaxis = 1.0;
+		yaxis = 1.0;
+		zaxis = 0.0;
+	}
+	glutPostRedisplay();
+}
+
+void menu(GLint option) {
+	switch (option) {
+	case 1:
+		x++;
+		if (x > 4) {
+			char r1[] = "Queue Overflow";
+			glColor3f(1.0, 0.0, 1.0);
+			glRasterPos3f(1.0, -1.5, 0.2);
+			for (i = 0; r1[i] != '\0'; i++)
+				glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, r1[i]);
+		}
+		if (x <= 4) {
+			char str3[] = "inserted sucessfully";
+			glColor3f(0.0, 1.0, 1.0);
+			glRasterPos3f(-4.0, -1.2, 0.2);
+			for (i = 0; str3[i] != '\0'; i++)
+				glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, str3[i]);
+		}
+		if (x > 4)
+			x = 4;
+		insert();
+		break;
+	case 2:
+		delt();
+		break;
+	}
+	glutPostRedisplay();
+}
+
+void mouse(int btn, int state, int x, int y) {
+	if (btn == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
+		int id = glutGetWindow();
+		glutDestroyWindow(id);
+
+		glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+		glutInitWindowSize(1366, 738);
+		glutInitWindowPosition(0, 0);
+		glutCreateWindow("queue operation");
+
+		glutKeyboardFunc(key);
+		glutDisplayFunc(display1);
+		glutReshapeFunc(myReshape);
+		int id1 = glutCreateMenu(submenu);
+		glutAddMenuEntry("X-axis", 1);
+		glutAddMenuEntry("Y-axis", 2);
+		glutAddMenuEntry("Z-axis", 3);
+		glutAddMenuEntry("Normal", 4);
+		glutCreateMenu(menu);
+		glutAddMenuEntry("Insert", 1);
+		glutAddMenuEntry("Delete", 2);
+		glutAddSubMenu("view of cube", id1);
+
+		glutAttachMenu(GLUT_RIGHT_BUTTON);
+		initGL();
+		glFlush();
+
+	}
+}
+
 void strokeString(float x, float y, float sx, float sy, char *string, int width) {
 	char *c;
 	glLineWidth(width);
@@ -38,106 +203,36 @@ void strokeString(float x, float y, float sx, float sy, char *string, int width)
 void display() {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(1, 0, 0);
-	strokeString(105, 850, 0.4, 0.4, "CITY ENGINEERING COLLEGE", 4);
-	strokeString(100, 750, 0.3, 0.3, "DEPARTMENT OF COMPUTER SCIENCE", 4);
-	strokeString(300, 670, 0.3, 0.3, "AND ENGINEERING", 4);
-	strokeString(200, 500, 0.3, 0.3, "AN OPENGL MINI PROJECT ON", 2);
+	strokeString(15, 365, 0.2, 0.2, "CITY ENGINEERING COLLEGE", 6);
+	strokeString(13, 335, 0.1, 0.1,
+			"DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING", 4);
+	strokeString(100, 300, 0.1, 0.1, "AN OPENGL MINI PROJECT ON", 2);
 	glColor3f(0, 1, 1);
-	strokeString(170, 420, 0.5, 0.4, "QUEUE VISUALIZATION", 6);
+	strokeString(60, 240, 0.2, 0.2, "QUEUE VISUALIZATION", 6);
 	glColor3f(1, 1, 0);
 	glColor3f(1, 0, 0);
-//	strokeString(50, 50, 0.17, 0.17, "Press (Enter) to start the simulation",
-//			2);
-	strokeString(650, 220, 0.15, 0.15, "By:", 2);
-	strokeString(10, 220, 0.15, 0.15, "Under the guidance of:", 2);
+	strokeString(10, 200, 0.06, 0.06, "Under the guidance of:", 2);
+	strokeString(250, 200, 0.06, 0.06, "By:", 2);
 	glColor3f(1, 1, 0);
-	strokeString(650, 180, 0.2, 0.2, "AZEEZ MOHAMED FAZRY", 2);
-	strokeString(10, 180, 0.2, 0.2, "Mrs. NANDINI S.B.", 2);
+	strokeString(10, 180, 0.08, 0.08, "Mrs. NANDINI S.B.", 2);
+	strokeString(250, 180, 0.08, 0.08, "AZEEZ MOHAMED FAZRY", 2);
 	glColor3f(1, 0, 0);
-	strokeString(650, 140, 0.18, 0.18, "1CE18CS010", 2);
-	strokeString(10, 140, 0.18, 0.18, "(Asst. Professor, Dept. of CSE)", 2);
+	strokeString(10, 160, 0.08, 0.08, "(Asst. Professor, Dept. of CSE)", 2);
+	strokeString(250, 160, 0.08, 0.08, "1CE18CS010", 2);
 	glColor3f(1, 0, 0);
 
-	button(100, 50, 300, 100, "Start Simulation");
-
-	glutSwapBuffers();
+	glutMouseFunc(mouse);
+	glFlush();
 }
-
-/*
- * Functions for button start.
- */
-int x1, y1, x2, y2;
-int state;
-char str[10];
-
-void buttonDraw() {
-	glColor3f(0.2, 0.2, 0.8);
-	glBegin(GL_POLYGON);
-	glVertex2f(x1, y1);
-	glVertex2f(x2, y1);
-	glVertex2f(x2, y2);
-	glVertex2f(x1, y2);
-	glEnd();
-	if (state == 0) {
-		glColor3f(0, 0, 0);
-		glBegin(GL_LINES);
-		glVertex2f(x1, y1);
-		glVertex2f(x2, y1);
-		glVertex2f(x2, y1);
-		glVertex2f(x2, y2);
-		glEnd();
-	} else if (state == 1) {
-		glColor3f(0, 0, 0);
-		glBegin(GL_LINES);
-		glVertex2f(x1, y1);
-		glVertex2f(x1, y2);
-		glVertex2f(x1, y2);
-		glVertex2f(x2, y2);
-		glEnd();
-	}
-	glColor3f(1.0, 1.0, 1.0);
-	strokeString(x1 + 10, y1 + 10, 0.15, 0.15, str, 2);
-
-}
-
-int insideButton(int x, int y) {
-	if (x > x1 && x < x2 && y > y1 && y < y2)
-		return 1;
-	else
-		return 0;
-}
-
-void toggleState() {
-	/*if(state==1)
-	 state=0;
-	 else if(state==0)
-	 state=1;*/
-	state = (state == 1) ? 0 : 1;
-}
-
-void button(int x11, int y11, int x22, int y22, char *str1) {
-	x1 = x11;
-	y1 = y11;
-	x2 = x22;
-	y2 = y22;
-	state = 1;
-	strcpy(str, str1);
-	buttonDraw();
-	toggleState();
-}
-/*
- * Functions for button end.
- */
 
 int main(int argc, char **argv) {
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 	glutInitWindowSize(1366, 738);
 	glutInitWindowPosition(0, 0);
-
-	glutCreateWindow("Queue Visualization - AzeezFazry");
-	init();
+	glutCreateWindow("Visualization of Queue - Azeez Fazry");
 	glutDisplayFunc(display);
+	init();
 	glutMainLoop();
 	return 0;
 }
