@@ -9,8 +9,10 @@
 
 #include <GL/glut.h>
 
+GLfloat red = 1.0, green = 0.0, blue = 0.0;
 int i = 0, x = -1, y = -1;
 GLfloat angle = -20.0, xaxis = 1.0, yaxis = 1.0, zaxis = 0.0;
+
 
 void init() {
 	glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -18,6 +20,561 @@ void init() {
 	glLoadIdentity();
 	gluOrtho2D(0.0, 400.0, 0.0, 400.0);
 	glMatrixMode(GL_MODELVIEW);
+}
+
+void strokeString(float x, float y, float sx, float sy, char *string, int width) {
+	char *c;
+	glLineWidth(width);
+	glPushMatrix();
+	glTranslatef(x, y, 0);
+	glScalef(sx, sy, 0);
+	for (c = string; *c != '\0'; c++) {
+		glutStrokeCharacter(GLUT_STROKE_ROMAN, *c);
+	}
+	glPopMatrix();
+}
+
+void cube() {
+	glScaled(0.5, 0.5, 0.5);
+	glRotated(angle, xaxis, yaxis, zaxis);
+	glBegin( GL_QUADS);
+	// Top face
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(1.0f, 1.0f, -1.0f);
+	glVertex3f(-1.0f, 1.0f, -1.0f);
+	glVertex3f(-1.0f, 1.0f, 1.0f);
+	glVertex3f(1.0f, 1.0f, 1.0f);
+	// Bottom face
+	glColor3f(1.0f, 1.0f, 0.0f);
+	glVertex3f(1.0f, -1.0f, -1.0f);
+	glVertex3f(-1.0f, -1.0f, -1.0f);
+	glVertex3f(-1.0f, -1.0f, 1.0f);
+	glVertex3f(1.0f, -1.0f, 1.0f);
+	// Front face
+	glColor3f(red, green, blue);
+	glVertex3f(1.0f, 1.0f, 1.0f);
+	glVertex3f(-1.0f, 1.0f, 1.0f);
+	glVertex3f(-1.0f, -1.0f, 1.0f);
+	glVertex3f(1.0f, -1.0f, 1.0f);
+	// Back face
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(1.0f, -1.0f, -1.0f);
+	glVertex3f(-1.0f, -1.0f, -1.0f);
+	glVertex3f(-1.0f, 1.0f, -1.0f);
+	glVertex3f(1.0f, 1.0f, -1.0f);
+	// Left face
+	glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(-1.0f, 1.0f, 1.0f);
+	glVertex3f(-1.0f, 1.0f, -1.0f);
+	glVertex3f(-1.0f, -1.0f, -1.0f);
+	glVertex3f(-1.0f, -1.0f, 1.0f);
+	// Right face
+	glColor3f(0.0f, 1.0f, 1.0f);
+	glVertex3f(1.0f, 1.0f, 1.0f);
+	glVertex3f(1.0f, 1.0f, -1.0f);
+	glVertex3f(1.0f, -1.0f, -1.0f);
+	glVertex3f(1.0f, -1.0f, 1.0f);
+	glEnd();
+}
+
+void insert() {
+
+	if (x == 0 && y == 0 || x == 1 && y == 1 || x == 2 && y == 2
+			|| x == 3 && y == 3 || x == 4 && y == 4) {
+
+		char str2[] = "Queue Empty";
+		glColor3f(1.0, 0.0, 1.0);
+		glRasterPos3f(1.0, -1.7, 0.2);
+		for (i = 0; str2[i] != '\0'; i++)
+			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, str2[i]);
+		glutSwapBuffers();
+	}
+	if (x == 0 && y == -1) {
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-2.9, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '1');
+		red = 1.0;
+		blue = green = 0.0;
+		glPushMatrix();
+		glTranslatef(-2.8f, 0.0, -5.0);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+
+	}
+	if (x == 1 && y == -1) {
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-2.9, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '1');
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-1.7, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '2');
+
+		green = 0.0;
+		blue = 0.0;
+		red = 1.0;
+		glPushMatrix();
+		glTranslatef(-2.8f, 0.0, -5.0);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+
+		red = 0.0;
+		blue = 0.0;
+		green = 1.0;
+		glPushMatrix();
+
+		glTranslatef(-1.7f, 0.0f, -5.0f);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+	}
+	if (x == 2 && y == -1) {
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-2.9, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '1');
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-1.7, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '2');
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-0.6, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '3');
+		red = 0.0;
+		blue = 1.0;
+		green = 0.0;
+		glPushMatrix();
+		glTranslatef(-0.6f, 0.0f, -5.0f);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+		green = 0.0;
+		blue = 0.0;
+		red = 1.0;
+		glPushMatrix();
+		glTranslatef(-2.8f, 0.0, -5.0);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+
+		red = 0.0;
+		blue = 0.0;
+		green = 1.0;
+		glPushMatrix();
+
+		glTranslatef(-1.7f, 0.0f, -5.0f);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+	}
+	if (x == 3 && y == -1) {
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-2.9, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '1');
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-1.7, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '2');
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-0.6, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '3');
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(0.5, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '4');
+		red = 1.0;
+		blue = 1.0;
+		green = 0.0;
+
+		glPushMatrix();
+		glTranslatef(0.5f, 0.0f, -5.0f);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+
+		red = 0.0;
+		blue = 1.0;
+		green = 0.0;
+		glPushMatrix();
+		glTranslatef(-0.6f, 0.0f, -5.0f);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+
+		green = 0.0;
+		blue = 0.0;
+		red = 1.0;
+		glPushMatrix();
+		glTranslatef(-2.8f, 0.0, -5.0);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+
+		red = 0.0;
+		blue = 0.0;
+		green = 1.0;
+		glPushMatrix();
+
+		glTranslatef(-1.7f, 0.0f, -5.0f);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+	}
+
+	if (x == 4 && y == -1) {
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-2.9, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '1');
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-1.7, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '2');
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-0.6, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '3');
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(0.5, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '4');
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(1.5, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '5');
+
+		red = 0.2;
+		blue = 0.6;
+		green = 0.5;
+		glPushMatrix();
+		glTranslatef(1.6f, 0.0f, -5.0f);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+
+		red = 0.0;
+		blue = 1.0;
+		green = 0.0;
+		glPushMatrix();
+		glTranslatef(-0.6f, 0.0f, -5.0f);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+
+		red = 1.0;
+		blue = 0.0;
+		green = 0.0;
+		glPushMatrix();
+		glTranslatef(-2.8f, 0.0, -5.0);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+
+		red = 0.0;
+		blue = 0.0;
+		green = 1.0;
+		glPushMatrix();
+
+		glTranslatef(-1.7f, 0.0f, -5.0f);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+		red = 1.0;
+		blue = 1.0;
+		green = 0.0;
+		glPushMatrix();
+		glTranslatef(0.5f, 0.0f, -5.0f);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+
+	}
+
+	if (x == 1 && y == 0) {
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-2.9, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '2');
+		red = 0.0;
+		blue = 0.0;
+		green = 1.0;
+		glPushMatrix();
+		glTranslatef(-2.8f, 0.0, -5.0);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+
+	}
+
+	if (x == 2 && y == 0) {
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-2.9, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '2');
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-1.7, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '3');
+		green = 1.0;
+		blue = 0.0;
+		red = 0.0;
+		glPushMatrix();
+		glTranslatef(-2.8f, 0.0, -5.0);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+
+		red = 0.0;
+		blue = 1.0;
+		green = 0.0;
+		glPushMatrix();
+
+		glTranslatef(-1.7f, 0.0f, -5.0f);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+
+	}
+
+	if (x == 3 && y == 0) {
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-2.9, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '2');
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-1.7, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '3');
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-0.6, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '4');
+
+		red = 1.0;
+		blue = 1.0;
+		green = 0.0;
+		glPushMatrix();
+		glTranslatef(-0.6f, 0.0f, -5.0f);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+		green = 1.0;
+		blue = 0.0;
+		red = 0.0;
+		glPushMatrix();
+		glTranslatef(-2.8f, 0.0, -5.0);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+
+		red = 0.0;
+		blue = 1.0;
+		green = 0.0;
+		glPushMatrix();
+
+		glTranslatef(-1.7f, 0.0f, -5.0f);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+	}
+	if (x == 4 && y == 0) {
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-2.9, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '2');
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-1.7, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '3');
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-0.6, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '4');
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(0.5, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '5');
+		red = 0.2;
+		blue = 0.5;
+		green = 0.6;
+
+		glPushMatrix();
+		glTranslatef(0.5f, 0.0f, -5.0f);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+
+		red = 1.0;
+		blue = 1.0;
+		green = 0.0;
+		glPushMatrix();
+		glTranslatef(-0.6f, 0.0f, -5.0f);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+
+		green = 1.0;
+		blue = 0.0;
+		red = 0.0;
+		glPushMatrix();
+		glTranslatef(-2.8f, 0.0, -5.0);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+
+		red = 0.0;
+		blue = 1.0;
+		green = 0.0;
+		glPushMatrix();
+
+		glTranslatef(-1.7f, 0.0f, -5.0f);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+
+	}
+
+	// y=2
+
+	if (x == 2 && y == 1) {
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-2.9, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '3');
+		red = 0.0;
+		blue = 1.0;
+		green = 0.0;
+		glPushMatrix();
+		glTranslatef(-2.8f, 0.0, -5.0);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+
+	}
+
+	if (x == 3 && y == 1) {
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-2.9, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '3');
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-1.7, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '4');
+		green = 0.0;
+		blue = 1.0;
+		red = 0.0;
+		glPushMatrix();
+		glTranslatef(-2.8f, 0.0, -5.0);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+
+		red = 1.0;
+		blue = 1.0;
+		green = 0.0;
+		glPushMatrix();
+
+		glTranslatef(-1.7f, 0.0f, -5.0f);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+	}
+	if (x == 4 && y == 1) {
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-2.9, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '3');
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-1.7, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '4');
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-0.6, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '5');
+
+		red = 0.2;
+		blue = 0.5;
+		green = 0.6;
+		glPushMatrix();
+		glTranslatef(-0.6f, 0.0f, -5.0f);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+		green = 0.0;
+		blue = 1.0;
+		red = 0.0;
+		glPushMatrix();
+		glTranslatef(-2.8f, 0.0, -5.0);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+
+		red = 1.0;
+		blue = 1.0;
+		green = 0.0;
+		glPushMatrix();
+
+		glTranslatef(-1.7f, 0.0f, -5.0f);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+
+	}
+
+	if (x == 3 && y == 2) {
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-2.9, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '4');
+		red = 1.0;
+		blue = 1.0;
+		green = 0.0;
+		glPushMatrix();
+		glTranslatef(-2.8f, 0.0, -5.0);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+
+	}
+
+	if (x == 4 && y == 2) {
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-2.9, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '4');
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-1.7, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '5');
+		green = 0.0;
+		blue = 1.0;
+		red = 1.0;
+		glPushMatrix();
+		glTranslatef(-2.8f, 0.0, -5.0);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+
+		red = 0.2;
+		blue = 0.5;
+		green = 0.6;
+		glPushMatrix();
+
+		glTranslatef(-1.7f, 0.0f, -5.0f);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+	}
+	if (x == 4 && y == 3) {
+		glColor3f(1.0, 1.0, 1.0);
+		glRasterPos3f(-2.9, -0.85, 0.2);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '5');
+		green = 0.6;
+		blue = 0.5;
+		red = 0.2;
+		glPushMatrix();
+		glTranslatef(-2.8f, 0.0, -5.0);
+		cube();
+		glPopMatrix();
+		glutSwapBuffers();
+	}
+}
+
+void delt() {
+	y++;
+
+	if (y < 5 && y <= x) {
+		char d1[] = "deleted sucessfully";
+		glColor3f(0.0, 1.0, 1.0);
+		glRasterPos3f(-4.0, -1.2, 0.2);
+		for (i = 0; d1[i] != '\0'; i++)
+			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, d1[i]);
+	}
+
+	if (x < y) {
+		printf("queue underflow \n");
+		if (x == -1 && y > -1) {
+			y = -1;
+		}
+	}
+	if (x < y)
+		y = x;
+	insert();
 }
 
 void key(unsigned char key, int a, int b) {
@@ -75,9 +632,9 @@ void key(unsigned char key, int a, int b) {
 void display1(void) {
 	glLoadIdentity();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	char str[] = "Implementation Of Queue";
+	char str[] = "Implementation Of Queue - AzeezFazry";
 	char str1[] =
-			"FrontEnd                                                                                                                           Rear End";
+			"FrontEnd                                                                                                                         Rear End";
 	glColor3f(1.0, 1.0, 0.0);
 	glRasterPos3f(-1.0, 1.8, 0.2);
 	for (i = 0; str[i] != '\0'; i++)
@@ -158,6 +715,18 @@ void menu(GLint option) {
 	glutPostRedisplay();
 }
 
+void initGL() {
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glEnable(GL_DEPTH_TEST);
+	glShadeModel(GL_SMOOTH);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-2.0, 2.0, -2.0, 2.0, -10.0, 10.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glutSwapBuffers();
+}
+
 void mouse(int btn, int state, int x, int y) {
 	if (btn == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
 		int id = glutGetWindow();
@@ -188,17 +757,6 @@ void mouse(int btn, int state, int x, int y) {
 	}
 }
 
-void strokeString(float x, float y, float sx, float sy, char *string, int width) {
-	char *c;
-	glLineWidth(width);
-	glPushMatrix();
-	glTranslatef(x, y, 0);
-	glScalef(sx, sy, 0);
-	for (c = string; *c != '\0'; c++) {
-		glutStrokeCharacter(GLUT_STROKE_ROMAN, *c);
-	}
-	glPopMatrix();
-}
 
 void display() {
 	glClear(GL_COLOR_BUFFER_BIT);
