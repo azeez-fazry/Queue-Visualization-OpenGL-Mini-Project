@@ -3,7 +3,7 @@
  *
  *  Created on: May 28, 2021, 6:36:30 PM
  *      Author: AZEEZ FAZRY
- *         Git: github.com/azeez-fazry
+ *         Git: https://github.com/azeez-fazry/Queue-Visualization-OpenGL-Mini-Project
  *
  */
 
@@ -12,7 +12,6 @@
 GLfloat red = 1.0, green = 0.0, blue = 0.0;
 int i = 0, x = -1, y = -1;
 GLfloat angle = -20.0, xaxis = 1.0, yaxis = 1.0, zaxis = 0.0;
-
 
 void init() {
 	glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -735,7 +734,7 @@ void mouse(int btn, int state, int x, int y) {
 		glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 		glutInitWindowSize(1366, 738);
 		glutInitWindowPosition(0, 0);
-		glutCreateWindow("queue operation");
+		glutCreateWindow("Visualization of Queue - Azeez Fazry");
 
 		glutKeyboardFunc(key);
 		glutDisplayFunc(display1);
@@ -757,6 +756,75 @@ void mouse(int btn, int state, int x, int y) {
 	}
 }
 
+/*
+ * Editing part
+ */
+void display2(void) {
+	glLoadIdentity();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	char str[] = "Implementation Of Queue - Azeez Fazry";
+	char str1[] = "What is a Queue Data Structure?";
+	char str2[] =
+			"A Queue is a linear structure which follows a particular order in which the operations are performed. The order";
+	char str3[] =
+			"is First In First Out (FIFO). A good example of a queue is any queue of consumers for a resource where the consumer that came first";
+	char str4[] = "is served first. ";
+	char str5[] =
+			"A queue is open at both its ends. One end is always used to insert data (enqueue) and the other is used to remove";
+	char str6[] = "data (dequeue).";
+	glColor3f(1.0, 1.0, 0.0);
+	glRasterPos3f(-1.2, 1.8, 0.2);
+	for (i = 0; str[i] != '\0'; i++)
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, str[i]);
+
+	glColor3f(1.0, 0.0, 0.0);
+	glRasterPos3f(-3.7, 1.4, 0.2);
+	for (i = 0; str1[i] != '\0'; i++)
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, str1[i]);
+
+	glColor3f(1.0, 0.2, 0.5);
+	glRasterPos3f(-2.5, 1.0, 0.2);
+	for (i = 0; str2[i] != '\0'; i++)
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, str2[i]);
+
+	glRasterPos3f(-3.7, 0.8, 0.2);
+	for (i = 0; str3[i] != '\0'; i++)
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, str3[i]);
+
+	glRasterPos3f(-3.7, 0.6, 0.2);
+	for (i = 0; str4[i] != '\0'; i++)
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, str4[i]);
+
+	glRasterPos3f(-2.5, 0.3, 0.2);
+	for (i = 0; str5[i] != '\0'; i++)
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, str5[i]);
+
+	glRasterPos3f(-3.7, 0.1, 0.2);
+	for (i = 0; str6[i] != '\0'; i++)
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, str6[i]);
+
+	glutMouseFunc(mouse); // mouse function to create the third page
+	glFlush();
+}
+
+void mouse1(int btn, int state, int x, int y) {
+	if (btn == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
+		int id = glutGetWindow();
+		glutDestroyWindow(id);
+
+		glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+		glutInitWindowSize(1366, 738);
+		glutInitWindowPosition(0, 0);
+		glutCreateWindow("Visualization of Queue - Fazry");
+
+		glutDisplayFunc(display2);
+		glutReshapeFunc(myReshape);
+
+		initGL();
+		glFlush();
+
+	}
+}
 
 void display() {
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -779,7 +847,7 @@ void display() {
 	strokeString(250, 160, 0.08, 0.08, "1CE18CS010", 2);
 	glColor3f(1, 0, 0);
 
-	glutMouseFunc(mouse);
+	glutMouseFunc(mouse1); // mouse function to create the second page
 	glFlush();
 }
 
