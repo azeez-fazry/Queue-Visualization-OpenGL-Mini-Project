@@ -50,7 +50,7 @@ void cube() {
 	glVertex3f(-1.0f, -1.0f, 1.0f);
 	glVertex3f(1.0f, -1.0f, 1.0f);
 	// Front face
-	glColor3f(red, green, blue);
+	glColor3f(1.0f, 0.2f, 0.5f);
 	glVertex3f(1.0f, 1.0f, 1.0f);
 	glVertex3f(-1.0f, 1.0f, 1.0f);
 	glVertex3f(-1.0f, -1.0f, 1.0f);
@@ -75,25 +75,27 @@ void cube() {
 	glVertex3f(1.0f, -1.0f, 1.0f);
 	glEnd();
 }
-
+/*
+ * y for push
+ * x for pop
+ */
 void insert() {
 
-	if (x == 0 && y == 0 || x == 1 && y == 1 || x == 2 && y == 2
-			|| x == 3 && y == 3 || x == 4 && y == 4) {
-
-		char str2[] = "Queue Empty";
+//	Empty condition
+	if (x == 0 && y == 0 || x == 1 && y == 1 || x == 2 && y == 2 || x == 3 && y == 3 || x == 4 && y == 4) {
+		char str2[] = "Empty Queue";
 		glColor3f(1.0, 0.0, 1.0);
 		glRasterPos3f(1.0, -1.7, 0.2);
 		for (i = 0; str2[i] != '\0'; i++)
 			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, str2[i]);
 		glutSwapBuffers();
 	}
+
 	if (x == 0 && y == -1) {
 		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-2.9, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '1');
-		red = 1.0;
-		blue = green = 0.0;
+
 		glPushMatrix();
 		glTranslatef(-2.8f, 0.0, -5.0);
 		cube();
@@ -101,119 +103,83 @@ void insert() {
 		glutSwapBuffers();
 
 	}
+
 	if (x == 1 && y == -1) {
 		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-2.9, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '1');
-		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-1.7, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '2');
 
-		green = 0.0;
-		blue = 0.0;
-		red = 1.0;
 		glPushMatrix();
 		glTranslatef(-2.8f, 0.0, -5.0);
 		cube();
 		glPopMatrix();
-		glutSwapBuffers();
 
-		red = 0.0;
-		blue = 0.0;
-		green = 1.0;
 		glPushMatrix();
-
 		glTranslatef(-1.7f, 0.0f, -5.0f);
 		cube();
 		glPopMatrix();
+
 		glutSwapBuffers();
 	}
 	if (x == 2 && y == -1) {
 		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-2.9, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '1');
-		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-1.7, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '2');
-		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-0.6, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '3');
-		red = 0.0;
-		blue = 1.0;
-		green = 0.0;
+
 		glPushMatrix();
 		glTranslatef(-0.6f, 0.0f, -5.0f);
 		cube();
 		glPopMatrix();
-		glutSwapBuffers();
-		green = 0.0;
-		blue = 0.0;
-		red = 1.0;
+
 		glPushMatrix();
 		glTranslatef(-2.8f, 0.0, -5.0);
 		cube();
 		glPopMatrix();
-		glutSwapBuffers();
 
-		red = 0.0;
-		blue = 0.0;
-		green = 1.0;
 		glPushMatrix();
-
 		glTranslatef(-1.7f, 0.0f, -5.0f);
 		cube();
 		glPopMatrix();
+
 		glutSwapBuffers();
 	}
 	if (x == 3 && y == -1) {
 		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-2.9, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '1');
-		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-1.7, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '2');
-		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-0.6, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '3');
-		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(0.5, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '4');
-		red = 1.0;
-		blue = 1.0;
-		green = 0.0;
 
 		glPushMatrix();
 		glTranslatef(0.5f, 0.0f, -5.0f);
 		cube();
 		glPopMatrix();
-		glutSwapBuffers();
 
-		red = 0.0;
-		blue = 1.0;
-		green = 0.0;
 		glPushMatrix();
 		glTranslatef(-0.6f, 0.0f, -5.0f);
 		cube();
 		glPopMatrix();
-		glutSwapBuffers();
 
-		green = 0.0;
-		blue = 0.0;
-		red = 1.0;
 		glPushMatrix();
 		glTranslatef(-2.8f, 0.0, -5.0);
 		cube();
 		glPopMatrix();
-		glutSwapBuffers();
 
-		red = 0.0;
-		blue = 0.0;
-		green = 1.0;
 		glPushMatrix();
-
 		glTranslatef(-1.7f, 0.0f, -5.0f);
 		cube();
 		glPopMatrix();
+
 		glutSwapBuffers();
 	}
 
@@ -221,62 +187,40 @@ void insert() {
 		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-2.9, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '1');
-		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-1.7, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '2');
-		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-0.6, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '3');
-		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(0.5, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '4');
-		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(1.5, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '5');
 
-		red = 0.2;
-		blue = 0.6;
-		green = 0.5;
 		glPushMatrix();
 		glTranslatef(1.6f, 0.0f, -5.0f);
 		cube();
 		glPopMatrix();
-		glutSwapBuffers();
 
-		red = 0.0;
-		blue = 1.0;
-		green = 0.0;
 		glPushMatrix();
 		glTranslatef(-0.6f, 0.0f, -5.0f);
 		cube();
 		glPopMatrix();
-		glutSwapBuffers();
 
-		red = 1.0;
-		blue = 0.0;
-		green = 0.0;
 		glPushMatrix();
 		glTranslatef(-2.8f, 0.0, -5.0);
 		cube();
 		glPopMatrix();
-		glutSwapBuffers();
 
-		red = 0.0;
-		blue = 0.0;
-		green = 1.0;
 		glPushMatrix();
-
 		glTranslatef(-1.7f, 0.0f, -5.0f);
 		cube();
 		glPopMatrix();
-		glutSwapBuffers();
-		red = 1.0;
-		blue = 1.0;
-		green = 0.0;
+
 		glPushMatrix();
 		glTranslatef(0.5f, 0.0f, -5.0f);
 		cube();
 		glPopMatrix();
+
 		glutSwapBuffers();
 
 	}
@@ -285,13 +229,12 @@ void insert() {
 		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-2.9, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '2');
-		red = 0.0;
-		blue = 0.0;
-		green = 1.0;
+
 		glPushMatrix();
 		glTranslatef(-2.8f, 0.0, -5.0);
 		cube();
 		glPopMatrix();
+
 		glutSwapBuffers();
 
 	}
@@ -300,134 +243,93 @@ void insert() {
 		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-2.9, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '2');
-		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-1.7, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '3');
-		green = 1.0;
-		blue = 0.0;
-		red = 0.0;
+
 		glPushMatrix();
 		glTranslatef(-2.8f, 0.0, -5.0);
 		cube();
 		glPopMatrix();
-		glutSwapBuffers();
 
-		red = 0.0;
-		blue = 1.0;
-		green = 0.0;
 		glPushMatrix();
-
 		glTranslatef(-1.7f, 0.0f, -5.0f);
 		cube();
 		glPopMatrix();
-		glutSwapBuffers();
 
+		glutSwapBuffers();
 	}
 
 	if (x == 3 && y == 0) {
 		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-2.9, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '2');
-		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-1.7, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '3');
-		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-0.6, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '4');
 
-		red = 1.0;
-		blue = 1.0;
-		green = 0.0;
 		glPushMatrix();
 		glTranslatef(-0.6f, 0.0f, -5.0f);
 		cube();
 		glPopMatrix();
-		glutSwapBuffers();
-		green = 1.0;
-		blue = 0.0;
-		red = 0.0;
+
 		glPushMatrix();
 		glTranslatef(-2.8f, 0.0, -5.0);
 		cube();
 		glPopMatrix();
-		glutSwapBuffers();
 
-		red = 0.0;
-		blue = 1.0;
-		green = 0.0;
 		glPushMatrix();
-
 		glTranslatef(-1.7f, 0.0f, -5.0f);
 		cube();
 		glPopMatrix();
+
 		glutSwapBuffers();
 	}
+
 	if (x == 4 && y == 0) {
 		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-2.9, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '2');
-		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-1.7, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '3');
-		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-0.6, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '4');
-		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(0.5, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '5');
-		red = 0.2;
-		blue = 0.5;
-		green = 0.6;
 
 		glPushMatrix();
 		glTranslatef(0.5f, 0.0f, -5.0f);
 		cube();
 		glPopMatrix();
-		glutSwapBuffers();
 
-		red = 1.0;
-		blue = 1.0;
-		green = 0.0;
 		glPushMatrix();
 		glTranslatef(-0.6f, 0.0f, -5.0f);
 		cube();
 		glPopMatrix();
-		glutSwapBuffers();
 
-		green = 1.0;
-		blue = 0.0;
-		red = 0.0;
 		glPushMatrix();
 		glTranslatef(-2.8f, 0.0, -5.0);
 		cube();
 		glPopMatrix();
-		glutSwapBuffers();
 
-		red = 0.0;
-		blue = 1.0;
-		green = 0.0;
 		glPushMatrix();
-
 		glTranslatef(-1.7f, 0.0f, -5.0f);
 		cube();
 		glPopMatrix();
+
 		glutSwapBuffers();
-
 	}
-
-	// y=2
 
 	if (x == 2 && y == 1) {
 		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-2.9, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '3');
-		red = 0.0;
-		blue = 1.0;
-		green = 0.0;
+
 		glPushMatrix();
 		glTranslatef(-2.8f, 0.0, -5.0);
 		cube();
 		glPopMatrix();
+
 		glutSwapBuffers();
 
 	}
@@ -436,64 +338,46 @@ void insert() {
 		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-2.9, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '3');
-		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-1.7, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '4');
-		green = 0.0;
-		blue = 1.0;
-		red = 0.0;
+
 		glPushMatrix();
 		glTranslatef(-2.8f, 0.0, -5.0);
 		cube();
 		glPopMatrix();
-		glutSwapBuffers();
 
-		red = 1.0;
-		blue = 1.0;
-		green = 0.0;
 		glPushMatrix();
-
 		glTranslatef(-1.7f, 0.0f, -5.0f);
 		cube();
 		glPopMatrix();
+
 		glutSwapBuffers();
 	}
+
 	if (x == 4 && y == 1) {
 		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-2.9, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '3');
-		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-1.7, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '4');
-		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-0.6, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '5');
 
-		red = 0.2;
-		blue = 0.5;
-		green = 0.6;
 		glPushMatrix();
 		glTranslatef(-0.6f, 0.0f, -5.0f);
 		cube();
 		glPopMatrix();
-		glutSwapBuffers();
-		green = 0.0;
-		blue = 1.0;
-		red = 0.0;
+
 		glPushMatrix();
 		glTranslatef(-2.8f, 0.0, -5.0);
 		cube();
 		glPopMatrix();
-		glutSwapBuffers();
 
-		red = 1.0;
-		blue = 1.0;
-		green = 0.0;
 		glPushMatrix();
-
 		glTranslatef(-1.7f, 0.0f, -5.0f);
 		cube();
 		glPopMatrix();
+
 		glutSwapBuffers();
 
 	}
@@ -502,13 +386,12 @@ void insert() {
 		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-2.9, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '4');
-		red = 1.0;
-		blue = 1.0;
-		green = 0.0;
+
 		glPushMatrix();
 		glTranslatef(-2.8f, 0.0, -5.0);
 		cube();
 		glPopMatrix();
+
 		glutSwapBuffers();
 
 	}
@@ -517,39 +400,32 @@ void insert() {
 		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-2.9, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '4');
-		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-1.7, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '5');
-		green = 0.0;
-		blue = 1.0;
-		red = 1.0;
+
 		glPushMatrix();
 		glTranslatef(-2.8f, 0.0, -5.0);
 		cube();
 		glPopMatrix();
-		glutSwapBuffers();
 
-		red = 0.2;
-		blue = 0.5;
-		green = 0.6;
 		glPushMatrix();
-
 		glTranslatef(-1.7f, 0.0f, -5.0f);
 		cube();
 		glPopMatrix();
+
 		glutSwapBuffers();
 	}
+
 	if (x == 4 && y == 3) {
 		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-2.9, -0.85, 0.2);
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '5');
-		green = 0.6;
-		blue = 0.5;
-		red = 0.2;
+
 		glPushMatrix();
 		glTranslatef(-2.8f, 0.0, -5.0);
 		cube();
 		glPopMatrix();
+
 		glutSwapBuffers();
 	}
 }
@@ -558,7 +434,7 @@ void delt() {
 	y++;
 
 	if (y < 5 && y <= x) {
-		char d1[] = "deleted sucessfully";
+		char d1[] = "Deleted Successfully!";
 		glColor3f(0.0, 1.0, 1.0);
 		glRasterPos3f(-4.0, -1.2, 0.2);
 		for (i = 0; d1[i] != '\0'; i++)
@@ -566,13 +442,11 @@ void delt() {
 	}
 
 	if (x < y) {
-		printf("queue underflow \n");
 		if (x == -1 && y > -1) {
 			y = -1;
 		}
-	}
-	if (x < y)
 		y = x;
+	}
 	insert();
 }
 
@@ -590,7 +464,6 @@ void key(unsigned char key, int a, int b) {
 
 		delt();
 		if (y < 5 && y <= x) {
-			printf("%d deleted sucessfully\n", y + 1);
 		}
 
 	}
@@ -599,7 +472,7 @@ void key(unsigned char key, int a, int b) {
 		x++;
 
 		if (x > 4) {
-			char r1[] = "Queue Overflow";
+			char r1[] = "Queue Overflow!";
 			glColor3f(1.0, 0.0, 1.0);
 			glRasterPos3f(1.0, -1.5, 0.2);
 			for (i = 0; r1[i] != '\0'; i++)
@@ -608,32 +481,24 @@ void key(unsigned char key, int a, int b) {
 		}
 
 		if (x <= 4) {
-			char str3[] = "inserted sucessfully";
+			char str3[] = "Inserted Successfully!";
 			glColor3f(0.0, 1.0, 1.0);
 			glRasterPos3f(-4.0, -1.2, 0.2);
 			for (i = 0; str3[i] != '\0'; i++)
 				glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, str3[i]);
 		}
-		if (x < 5) {
-			printf("%d inserted sucessfully\n", x + 1);
-		}
-		if (x >= 5) {
-			printf("queue overflow \n");
-		}
 		if (x > 4)
 			x = 4;
 		insert();
 	}
-
 	glutPostRedisplay();
 }
 
 void display1(void) {
 	glLoadIdentity();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	char str[] = "Implementation Of Queue - AzeezFazry";
-	char str1[] =
-			"FrontEnd                                                                                                                         Rear End";
+	char str[] = "Visualization of Queue - Azeez Fazry";
+	char str1[] = "FrontEnd                                                                                                                         Rear End";
 	glColor3f(1.0, 1.0, 0.0);
 	glRasterPos3f(-1.0, 1.8, 0.2);
 	for (i = 0; str[i] != '\0'; i++)
@@ -660,31 +525,6 @@ void myReshape(int w, int h) {
 	glMatrixMode(GL_MODELVIEW);
 }
 
-void submenu(GLint option) {
-	switch (option) {
-	case 1:
-		xaxis = 1.0;
-		yaxis = 0.0;
-		zaxis = 0.0;
-		break;
-	case 2:
-		xaxis = 0.0;
-		yaxis = 1.0;
-		zaxis = 0.0;
-		break;
-	case 3:
-		xaxis = 0.0;
-		yaxis = 0.0;
-		zaxis = 1.0;
-		break;
-	case 4:
-		xaxis = 1.0;
-		yaxis = 1.0;
-		zaxis = 0.0;
-	}
-	glutPostRedisplay();
-}
-
 void menu(GLint option) {
 	switch (option) {
 	case 1:
@@ -697,7 +537,7 @@ void menu(GLint option) {
 				glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, r1[i]);
 		}
 		if (x <= 4) {
-			char str3[] = "inserted sucessfully";
+			char str3[] = "Inserted Successfully";
 			glColor3f(0.0, 1.0, 1.0);
 			glRasterPos3f(-4.0, -1.2, 0.2);
 			for (i = 0; str3[i] != '\0'; i++)
@@ -739,15 +579,9 @@ void mouse(int btn, int state, int x, int y) {
 		glutKeyboardFunc(key);
 		glutDisplayFunc(display1);
 		glutReshapeFunc(myReshape);
-		int id1 = glutCreateMenu(submenu);
-		glutAddMenuEntry("X-axis", 1);
-		glutAddMenuEntry("Y-axis", 2);
-		glutAddMenuEntry("Z-axis", 3);
-		glutAddMenuEntry("Normal", 4);
 		glutCreateMenu(menu);
 		glutAddMenuEntry("Insert", 1);
 		glutAddMenuEntry("Delete", 2);
-		glutAddSubMenu("view of cube", id1);
 
 		glutAttachMenu(GLUT_RIGHT_BUTTON);
 		initGL();
@@ -762,7 +596,7 @@ void mouse(int btn, int state, int x, int y) {
 void display2(void) {
 	glLoadIdentity();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	char str[] = "Implementation Of Queue - Azeez Fazry";
+	char str[] = "Visualization of Queue - Azeez Fazry";
 	char str1[] = "What is a Queue Data Structure?";
 	char str2[] =
 			"A Queue is a linear structure which follows a particular order in which the operations are performed. The order";
@@ -815,7 +649,7 @@ void mouse1(int btn, int state, int x, int y) {
 		glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 		glutInitWindowSize(1366, 738);
 		glutInitWindowPosition(0, 0);
-		glutCreateWindow("Visualization of Queue - Fazry");
+		glutCreateWindow("Visualization of Queue - Azeez Fazry");
 
 		glutDisplayFunc(display2);
 		glutReshapeFunc(myReshape);
