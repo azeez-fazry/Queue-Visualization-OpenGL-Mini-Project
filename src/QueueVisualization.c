@@ -9,10 +9,12 @@
 
 #include <GL/glut.h>
 
-GLfloat red = 1.0, green = 0.0, blue = 0.0;
 int i = 0, x = -1, y = -1;
 GLfloat angle = -20.0, xaxis = 1.0, yaxis = 1.0, zaxis = 0.0;
 
+/**
+ * Function to set viewport
+ */
 void init() {
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glMatrixMode(GL_PROJECTION);
@@ -21,6 +23,10 @@ void init() {
 	glMatrixMode(GL_MODELVIEW);
 }
 
+/**
+ * Function to make text in the screen.
+ *
+ */
 void strokeString(float x, float y, float sx, float sy, char *string, int width) {
 	char *c;
 	glLineWidth(width);
@@ -33,6 +39,9 @@ void strokeString(float x, float y, float sx, float sy, char *string, int width)
 	glPopMatrix();
 }
 
+/**
+ * Function to draw 3D cube.
+ */
 void cube() {
 	glScaled(0.5, 0.5, 0.5);
 	glRotated(angle, xaxis, yaxis, zaxis);
@@ -75,14 +84,20 @@ void cube() {
 	glVertex3f(1.0f, -1.0f, 1.0f);
 	glEnd();
 }
-/*
- * y for push
- * x for pop
+
+/**
+ * Insert function. It checks the limit of queue.
+ * It checks the number of elements present in the queue
+ * through VAR x and y.
+ * Shows Overflow message when the queue is filled.
+ * y for pop
+ * x for push
  */
 void insert() {
 
 //	Empty condition
-	if (x == 0 && y == 0 || x == 1 && y == 1 || x == 2 && y == 2 || x == 3 && y == 3 || x == 4 && y == 4) {
+	if (x == 0 && y == 0 || x == 1 && y == 1 || x == 2 && y == 2
+			|| x == 3 && y == 3 || x == 4 && y == 4) {
 		char str2[] = "Empty Queue";
 		glColor3f(1.0, 0.0, 1.0);
 		glRasterPos3f(1.0, -1.7, 0.2);
@@ -100,8 +115,8 @@ void insert() {
 		glTranslatef(-2.8f, 0.0, -5.0);
 		cube();
 		glPopMatrix();
-		glutSwapBuffers();
 
+		glutSwapBuffers();
 	}
 
 	if (x == 1 && y == -1) {
@@ -123,6 +138,7 @@ void insert() {
 
 		glutSwapBuffers();
 	}
+
 	if (x == 2 && y == -1) {
 		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-2.9, -0.85, 0.2);
@@ -149,6 +165,7 @@ void insert() {
 
 		glutSwapBuffers();
 	}
+
 	if (x == 3 && y == -1) {
 		glColor3f(1.0, 1.0, 1.0);
 		glRasterPos3f(-2.9, -0.85, 0.2);
@@ -379,7 +396,6 @@ void insert() {
 		glPopMatrix();
 
 		glutSwapBuffers();
-
 	}
 
 	if (x == 3 && y == 2) {
@@ -393,7 +409,6 @@ void insert() {
 		glPopMatrix();
 
 		glutSwapBuffers();
-
 	}
 
 	if (x == 4 && y == 2) {
@@ -430,26 +445,30 @@ void insert() {
 	}
 }
 
+/**
+ * Function to delete cube.
+ * It will checks for the pointers x and y
+ */
 void delt() {
 	y++;
-
-	if (y < 5 && y <= x) {
+	if (y < 5 && y < x) {
 		char d1[] = "Deleted Successfully!";
 		glColor3f(0.0, 1.0, 1.0);
-		glRasterPos3f(-4.0, -1.2, 0.2);
+		glRasterPos3f(1.0, -1.5, 0.2);
 		for (i = 0; d1[i] != '\0'; i++)
 			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, d1[i]);
 	}
-
 	if (x < y) {
-		if (x == -1 && y > -1) {
-			y = -1;
+		if (x == 4 && y >-1) {
+			y = x = -1;
 		}
-		y = x;
 	}
 	insert();
 }
 
+/**
+ * Function to get the input from the keyboard.
+ */
 void key(unsigned char key, int a, int b) {
 	if (key == 'b') {
 		angle += 10;
@@ -483,7 +502,7 @@ void key(unsigned char key, int a, int b) {
 		if (x <= 4) {
 			char str3[] = "Inserted Successfully!";
 			glColor3f(0.0, 1.0, 1.0);
-			glRasterPos3f(-4.0, -1.2, 0.2);
+			glRasterPos3f(1.0, -1.5, 0.2);
 			for (i = 0; str3[i] != '\0'; i++)
 				glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, str3[i]);
 		}
@@ -494,24 +513,32 @@ void key(unsigned char key, int a, int b) {
 	glutPostRedisplay();
 }
 
+/**
+ * Function to display the third window.
+ */
 void display1(void) {
 	glLoadIdentity();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	char str[] = "Visualization of Queue - Azeez Fazry";
-	char str1[] = "FrontEnd                                                                                                                         Rear End";
+	char str1[] =
+			"FrontEnd                                                                                                                         Rear End";
 	glColor3f(1.0, 1.0, 0.0);
 	glRasterPos3f(-1.0, 1.8, 0.2);
 	for (i = 0; str[i] != '\0'; i++)
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, str[i]);
 	glColor3f(0.0, 0.0, 1.0);
-	glRasterPos3f(-4.2, 0.04, 0.2);
+	glRasterPos3f(-2.95, -1.3, 0.2);
 	for (i = 0; str1[i] != '\0'; i++)
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, str1[i]);
-
 	glFlush();
 
 }
 
+/**
+ * Reshape function.
+ * Used to display the elements when the window
+ * is reshaped.
+ */
 void myReshape(int w, int h) {
 	glViewport(0, 0, w, h);
 	glMatrixMode(GL_PROJECTION);
@@ -525,6 +552,12 @@ void myReshape(int w, int h) {
 	glMatrixMode(GL_MODELVIEW);
 }
 
+/**
+ * The menu function, controlled by mouse.
+ * Right click.
+ * Used to insert and delete elements
+ * through mouse
+ */
 void menu(GLint option) {
 	switch (option) {
 	case 1:
@@ -566,6 +599,10 @@ void initGL() {
 	glutSwapBuffers();
 }
 
+/**
+ * Mouse function, Uset to change the screen
+ * from screen 1 to screen 2.
+ */
 void mouse(int btn, int state, int x, int y) {
 	if (btn == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
 		int id = glutGetWindow();
@@ -577,11 +614,11 @@ void mouse(int btn, int state, int x, int y) {
 		glutCreateWindow("Visualization of Queue - Azeez Fazry");
 
 		glutKeyboardFunc(key);
-		glutDisplayFunc(display1);
 		glutReshapeFunc(myReshape);
 		glutCreateMenu(menu);
 		glutAddMenuEntry("Insert", 1);
 		glutAddMenuEntry("Delete", 2);
+		glutDisplayFunc(display1);
 
 		glutAttachMenu(GLUT_RIGHT_BUTTON);
 		initGL();
@@ -590,8 +627,9 @@ void mouse(int btn, int state, int x, int y) {
 	}
 }
 
-/*
- * Editing part
+// TODO Add description about the queue...
+/**
+ * Function to display the second window.
  */
 void display2(void) {
 	glLoadIdentity();
@@ -637,10 +675,14 @@ void display2(void) {
 	for (i = 0; str6[i] != '\0'; i++)
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, str6[i]);
 
-	glutMouseFunc(mouse); // mouse function to create the third page
+	glutMouseFunc(mouse); // mouse function to create the third window
 	glFlush();
 }
 
+/**
+ * Mouse function, Uset to change the screen
+ * from screen 2 to screen 3.
+ */
 void mouse1(int btn, int state, int x, int y) {
 	if (btn == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
 		int id = glutGetWindow();
@@ -660,6 +702,9 @@ void mouse1(int btn, int state, int x, int y) {
 	}
 }
 
+/**
+ * Function that creates the first window.
+ */
 void display() {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(1, 0, 0);
@@ -676,15 +721,20 @@ void display() {
 	glColor3f(1, 1, 0);
 	strokeString(10, 180, 0.08, 0.08, "Mrs. NANDINI S.B.", 2);
 	strokeString(250, 180, 0.08, 0.08, "AZEEZ MOHAMED FAZRY", 2);
+	strokeString(250, 140, 0.08, 0.08, "MAHESH", 2);
 	glColor3f(1, 0, 0);
 	strokeString(10, 160, 0.08, 0.08, "(Asst. Professor, Dept. of CSE)", 2);
 	strokeString(250, 160, 0.08, 0.08, "1CE18CS010", 2);
+	strokeString(250, 120, 0.08, 0.08, "1CE18CS040", 2);
 	glColor3f(1, 0, 0);
 
-	glutMouseFunc(mouse1); // mouse function to create the second page
+	glutMouseFunc(mouse1); // mouse function to create the second window
 	glFlush();
 }
 
+/**
+ * MAin function.
+ */
 int main(int argc, char **argv) {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
